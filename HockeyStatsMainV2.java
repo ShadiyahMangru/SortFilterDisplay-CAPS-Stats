@@ -267,6 +267,29 @@ class Skaters extends HockeyPlayer implements Comparable<Skaters>{
 		skatersRoster.add(new Skaters("Carlson", "Defense", 15, 53, 68, 0));
 		skatersRoster.add(new Skaters("Oshie", "Forward, RW", 18, 29, 47, 2));
 		skatersRoster.add(new Skaters("Eller", "Forward, C", 18, 20, 38, -6));
+		skatersRoster.add(new Skaters("Wilson", "Forward, RW", 14, 21, 35, 10));
+		skatersRoster.add(new Skaters("Connolly", "Forward, RW", 15, 12, 27, -6));
+		skatersRoster.add(new Skaters("Vrana", "Forward, LW", 13, 14, 27, 2));
+		skatersRoster.add(new Skaters("Peluso", "Forward, RW", 0, 0, 0, 0));
+		skatersRoster.add(new Skaters("O'Brien", "Forward, C", 0, 0, 0, 0));
+		skatersRoster.add(new Skaters("Gersich", "Forward, LW", 0, 1, 1, -1));
+		skatersRoster.add(new Skaters("Graovac", "Forward, C", 0, 0, 0, -3));
+		skatersRoster.add(new Skaters("Boyd", "Forward, C", 0, 1, 1, 2));
+		skatersRoster.add(new Skaters("Walker", "Forward, LW", 1, 0, 1, 1));
+		skatersRoster.add(new Skaters("Smith-Pelly", "Forward, RW", 7, 9, 16, -6));
+		skatersRoster.add(new Skaters("Burakovsky", "Forward, LW", 12, 13, 25, 3));
+		skatersRoster.add(new Skaters("Stephenson", "Forward, C", 6, 12, 18, 13));
+		skatersRoster.add(new Skaters("Beagle", "Forward, C", 7, 15, 22, 3));
+		skatersRoster.add(new Skaters("Chiasson", "Forward, RW", 9, 9, 18, 1));
+		skatersRoster.add(new Skaters("Orlov", "Defense", 10, 21, 31, 10));
+		skatersRoster.add(new Skaters("Niskanen", "Defense", 7, 22, 29, 24));
+		skatersRoster.add(new Skaters("Djoos", "Defense", 3, 11, 14, 13));
+		skatersRoster.add(new Skaters("Bowey", "Defense", 0, 12, 12, -3));
+		skatersRoster.add(new Skaters("Orpik", "Defense", 0, 10, 10, -9));
+		skatersRoster.add(new Skaters("Chorney", "Defense", 1, 3, 4, 8));
+		skatersRoster.add(new Skaters("Jerabek", "Defense", 1, 3, 4, -1));
+		skatersRoster.add(new Skaters("Kempny", "Defense", 2, 1, 3, 1));
+		skatersRoster.add(new Skaters("Ness", "Defense", 0, 1, 1, 2));
 	}
 	
 	//getters
@@ -349,12 +372,65 @@ class FilterStatsGoalies extends Goalies{
 		this.minInclusive = minInclusive;	
 	}
 	
+	public void setMinInclusive(){
+	try{
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			System.out.print("Enter minimum inclusive value: ");
+			minInclusive = Integer.parseInt(reader.readLine());
+		}
+		catch(Exception e){
+			System.out.println("oh noz, there is an Exception: " + e + "\nTry again!");
+			setMinInclusive();
+		}	
+	}
+	
 	public void setMaxInclusive(int maxInclusive){
 		this.maxInclusive = maxInclusive;	
 	}
 	
+	public void setMaxInclusive(){
+		try{
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			System.out.print("Enter maximum inclusive value: ");
+			maxInclusive = Integer.parseInt(reader.readLine());
+		}
+		catch(Exception e){
+			System.out.println("oh noz, there is an Exception: " + e + "\nTry again!");
+			setMaxInclusive();
+		}	
+	}
+	
 	public void setGoaliesFiltered(){
-		//
+		goaliesFiltered = new ArrayList<Goalies>();
+		switch(filterBy){
+		case 1: SortStatsGoalies sa = new SortStatsGoalies(1);
+			for(Goalies gl : sa.getGoaliesSorted()){
+				if(gl.getShotsAgainst() >= minInclusive){
+					if(gl.getShotsAgainst() <= maxInclusive){
+						goaliesFiltered.add(gl);
+					}
+				}
+			}
+			break;
+		case 2: SortStatsGoalies ga = new SortStatsGoalies(2);
+			for(Goalies gl : ga.getGoaliesSorted()){
+				if(gl.getGoalsAgainst() >= minInclusive){
+					if(gl.getGoalsAgainst() <= maxInclusive){
+						goaliesFiltered.add(gl);
+					}
+				}
+			}
+			break;
+		case 3: SortStatsGoalies sv = new SortStatsGoalies(3);
+			for(Goalies gl : sv.getGoaliesSorted()){
+				if(gl.getSaves() >= minInclusive){
+					if(gl.getSaves() <= maxInclusive){
+						goaliesFiltered.add(gl);
+					}
+				}
+			}
+			break;
+		}
 	}
 	
 	//getters
@@ -426,12 +502,75 @@ class FilterStatsSkaters extends Skaters{
 		this.minInclusive = minInclusive;	
 	}
 	
+	public void setMinInclusive(){
+	try{
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			System.out.print("Enter minimum inclusive value: ");
+			minInclusive = Integer.parseInt(reader.readLine());
+		}
+		catch(Exception e){
+			System.out.println("oh noz, there is an Exception: " + e + "\nTry again!");
+			setMinInclusive();
+		}	
+	}
+	
 	public void setMaxInclusive(int maxInclusive){
 		this.maxInclusive = maxInclusive;	
 	}
 	
+	public void setMaxInclusive(){
+		try{
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			System.out.print("Enter maximum inclusive value: ");
+			maxInclusive = Integer.parseInt(reader.readLine());
+		}
+		catch(Exception e){
+			System.out.println("oh noz, there is an Exception: " + e + "\nTry again!");
+			setMaxInclusive();
+		}	
+	}
+	
 	public void setSkatersFiltered(){
-		//
+		skatersFiltered = new ArrayList<Skaters>();
+		switch(filterBy){
+		case 1: SortStatsSkaters p = new SortStatsSkaters(1);
+			for(Skaters s : p.getSkatersSorted()){
+				if(s.getPoints() >= minInclusive){
+					if(s.getPoints() <= maxInclusive){
+						skatersFiltered.add(s);
+					}
+				}
+			}
+			break;
+		case 2: SortStatsSkaters g = new SortStatsSkaters(2);
+			for(Skaters s : g.getSkatersSorted()){
+				if(s.getGoals() >= minInclusive){
+					if(s.getGoals() <= maxInclusive){
+						skatersFiltered.add(s);
+					}
+				}
+			}
+			break;
+		case 3: SortStatsSkaters a = new SortStatsSkaters(3);
+			for(Skaters s : a.getSkatersSorted()){
+				if(s.getAssists() >= minInclusive){
+					if(s.getAssists() <= maxInclusive){
+						skatersFiltered.add(s);
+					}
+				}
+			}
+			break;
+		case 4: SortStatsSkaters pm = new SortStatsSkaters(4);
+			for(Skaters s : pm.getSkatersSorted()){
+				if(s.getPlusMinus() >= minInclusive){
+					if(s.getPlusMinus() <= maxInclusive){
+						skatersFiltered.add(s);
+					}
+				}
+			}
+			break;
+		}
+		
 	}
 	
 	//getters
@@ -595,6 +734,28 @@ class FilterOutput extends Output{
 	private FilterOutput(){
 	}
 	
+
+	public static void userDefinedSkaterFilter(int filterByThis){
+		FilterStatsSkaters fss = new FilterStatsSkaters();
+		fss.setFilterBy(filterByThis);
+		fss.setMinInclusive();
+		fss.setMaxInclusive();
+		fss.setSkatersFiltered();
+		System.out.println();
+		Output.printSkaters(fss.getSkatersFiltered() );	
+	}
+	
+	
+	public static void userDefinedGoalieFilter(int filterByThis){
+		FilterStatsGoalies fsg = new FilterStatsGoalies();
+		fsg.setFilterBy(filterByThis);
+		fsg.setMinInclusive();
+		fsg.setMaxInclusive();
+		fsg.setGoaliesFiltered();
+		System.out.println();
+		Output.printGoalies(fsg.getGoaliesFiltered() );
+	}
+	
 	/**
 	* a method that outputs a menu to select which filtered stats to display on screen
 	*/
@@ -611,31 +772,32 @@ class FilterOutput extends Output{
 			System.out.println();
 				switch(userChoice){
 					case 1: System.out.println("  You selected: Filter Skater POINTS");
-						System.out.println("Filtered points will be displayed here...");
+						userDefinedSkaterFilter(1);
 						userFilterOptions();
 						break;
 					case 2: System.out.println("  You selected: Filter Skater GOALS");
-						System.out.println("Filtered goals will be displayed here...");
+						FilterStatsSkaters g = new FilterStatsSkaters();
+						userDefinedSkaterFilter(2);
 						userFilterOptions();
 						break;
 					case 3: System.out.println("  You selected: Filter Skater ASSISTS");
-						System.out.println("Filtered assists will be displayed here...");
+						userDefinedSkaterFilter(3);
 						userFilterOptions();
 						break;
 					case 4: System.out.println("  You selected: Filter Skater +/-");
-						System.out.println("Filtered +/- will be displayed here...");
+						userDefinedSkaterFilter(4);
 						userFilterOptions();
 						break;
 					case 5: System.out.println("  You selected: Filter Goalie SHOTS AGAINST");
-						System.out.println("Filtered shots against will be displayed here...");
+						userDefinedGoalieFilter(1);
 						userFilterOptions();
 						break;
 					case 6: System.out.println("  You selected: Filter Goalie GOALS AGAINST");
-						System.out.println("Filtered goals against will be displayed here...");
+						userDefinedGoalieFilter(2);
 						userFilterOptions();
 						break;
 					case 7: System.out.println("  You selected: Filter Goalie SAVES");
-						System.out.println("Filtered saves will be displayed here...");
+						userDefinedGoalieFilter(3);
 						userFilterOptions();
 						break;
 					case 8: System.out.print("  You selected: EXIT");
